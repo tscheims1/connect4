@@ -7,16 +7,21 @@ import javax.swing.JFrame;
 
 public class Game extends JFrame{
 
+	public final static int UNIT = 20;
+	
 	public Game()
 	{
 		
 	}
 	public void start()
 	{
-		Stone StoneA = new Stone();
-		Stone StoneB = new Stone();
+		/*Stone StoneA = new Stone();
+		Stone StoneB = new Stone();*/
 		Board board = new Board();
 		
+		
+		GameComponents gameComponents = new GameComponents();
+		gameComponents.add(new Board());
 		
 		
 		
@@ -25,7 +30,7 @@ public class Game extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.setVisible(true);
-		this.add(new GameComponents());
+		this.add(gameComponents);
 		this.repaint();
 		//this.loop();
 	}

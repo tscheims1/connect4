@@ -12,6 +12,11 @@ public class GameComponents extends JComponent{
 	 */
 	private ArrayList<GameElement>components;
 	
+	public GameComponents()
+	{
+		components = new ArrayList<GameElement>();
+	}
+	
 	public void paintComponent(Graphics g)
 	{
 		/*
@@ -21,5 +26,9 @@ public class GameComponents extends JComponent{
 		{
 			this.components.get(i).draw(g);
 		}
+	}
+	public void add(GameElement element)
+	{
+		this.components.add(element);
 	}
 }
