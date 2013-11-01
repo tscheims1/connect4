@@ -7,4 +7,8 @@ public class HumanPlayer extends Player{
 		super();
 		this.isHumanPlayer = true;
 	}
+	public int drop()
+	{
+		return 1;
+	}
 }

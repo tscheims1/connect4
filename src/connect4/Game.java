@@ -17,6 +17,9 @@ public class Game extends JFrame{
 	public final static int ROWS = 6;
 	public final static int COLS = 7;
 	
+	private GameComponents gameComponents;
+	private Player players[] = new Player[2];
+	
 	private int [][] board;
 	
 	public Game()
@@ -33,11 +36,12 @@ public class Game extends JFrame{
 		Board board = new Board();
 		
 		
-		GameComponents gameComponents = new GameComponents();
+		gameComponents = new GameComponents();
 		gameComponents.add(new Board());
 		gameComponents.add(new Stone(1,1,1));
 		
-		
+		players[0] = new HumanPlayer();
+		players[1] = new CommonAI();
 		
 		this.setSize(500, 500);
 		this.setTitle("Connect-4");
@@ -46,14 +50,40 @@ public class Game extends JFrame{
 		this.setVisible(true);
 		this.add(gameComponents);
 		this.repaint();
-		//this.loop();
+		this.loop();
 	}
+	
+	/**
+	 * The MAIN Gameloop
+	 */
 	private void loop()
 	{
-		for(;;)
+		for(int i = 0;i < Game.ROWS*Game.COLS;i++)
 		{
+			int nextDrop = players[i%2].drop();
 			
+			insertDrop(nextDrop,i%2 +1);
+			
+			this.repaint();
 		}
 		
+	}
+	/**
+	 * Insert a Drop in the Boardgame
+	 * @param col
+	 * @param player
+	 */
+	private void insertDrop(int col,int player)
+	{
+		for(int i = 0; i < Game.ROWS;i++)
+		{
+			if(board[i][col] ==0)
+			{
+				System.out.println(i +"    "+ col);
+				board[i][col] = player;
+				gameComponents.add(new Stone(col,i+1,player));
+				break;
+			}
+		}
 	}
 }

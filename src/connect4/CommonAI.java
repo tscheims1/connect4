@@ -6,7 +6,10 @@ public class CommonAI extends Player{
 	{
 		this.isHumanPlayer = false;
 	}
-	
+	public int drop()
+	{
+		return 1;
+	}
 	
 
 }

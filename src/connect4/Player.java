@@ -1,9 +1,9 @@
 package connect4;
 
-public class Player {
+abstract public class Player {
 
 	boolean isHumanPlayer;
 	
-	
+	abstract public int drop();
 	
 }
