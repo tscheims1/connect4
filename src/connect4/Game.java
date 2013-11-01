@@ -7,18 +7,29 @@ import java.awt.Point;
 import javax.swing.JFrame;
 
 public class Game extends JFrame{
-
+	
+	/**
+	 * Informations for the Graphic Classes
+	 */
+	
+	
 	public final static int UNIT = 20;
 	public final static int ROWS = 6;
 	public final static int COLS = 7;
+	
+	private int [][] board;
+	
 	public Game()
 	{
+		/*
+		 * Init an empty board
+		 */
+		board = new int[Game.COLS][Game.ROWS];
 		
 	}
 	public void start()
 	{
-		/*Stone StoneA = new Stone();
-		Stone StoneB = new Stone();*/
+		
 		Board board = new Board();
 		
 		
@@ -43,5 +54,6 @@ public class Game extends JFrame{
 		{
 			
 		}
+		
 	}
 }
