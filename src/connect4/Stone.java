@@ -16,7 +16,7 @@ public class Stone extends GameElement {
 		 * Calculate the Graphic position
 		 */
 		super(
-				new Point((Game.UNIT+Game.UNIT/10)*Game.COLS-(Game.UNIT+Game.UNIT/10)*col,
+				new Point((Game.UNIT+Game.UNIT/10)*(col-1),
 						(Game.UNIT+Game.UNIT/10)*Game.ROWS-(Game.UNIT+Game.UNIT/10)*row),
 				new Point(Game.UNIT,Game.UNIT));
 		
