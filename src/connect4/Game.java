@@ -3,6 +3,7 @@ package connect4;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
 
@@ -38,7 +39,7 @@ public class Game extends JFrame{
 		
 		gameComponents = new GameComponents();
 		gameComponents.add(new Board());
-		gameComponents.add(new Stone(1,1,1));
+		
 		
 		players[0] = new HumanPlayer();
 		players[1] = new CommonAI();
@@ -60,10 +61,16 @@ public class Game extends JFrame{
 	{
 		for(int i = 0;i < Game.ROWS*Game.COLS;i++)
 		{
-			int nextDrop = players[i%2].drop();
+			//int nextDrop = players[i%2].drop();
+			Scanner sc = new Scanner(System.in);
+			int nextDrop = sc.nextInt();
+			this.insertDrop(nextDrop,i%2 +1);
 			
-			insertDrop(nextDrop,i%2 +1);
-			
+			if(GameHelper.hasPlayerWon(this.board, i%2+1))
+			{
+				System.out.println("player"+i%2+1);
+			}
+			System.out.println(this.board);
 			this.repaint();
 		}
 		
@@ -77,11 +84,11 @@ public class Game extends JFrame{
 	{
 		for(int i = 0; i < Game.ROWS;i++)
 		{
-			if(board[i][col] ==0)
+			if(board[col-1][i] ==0)
 			{
-				System.out.println(i +"    "+ col);
-				board[i][col] = player;
-				gameComponents.add(new Stone(col,i+1,player));
+				//System.out.println(i +"    "+ col);
+				this.board[col-1][i] = player;
+				this.gameComponents.add(new Stone(col,i+1,player));
 				break;
 			}
 		}
