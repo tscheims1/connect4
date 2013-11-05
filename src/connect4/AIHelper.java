@@ -14,6 +14,10 @@ public class AIHelper {
 		int lastDropY = this.getCurrentRow(board, lastDrop);
 		
 		
+		int countLines = 0;
+		/*
+		 *check all winnin lines
+		 */
 		return 1;
 	}
 	/**
@@ -32,6 +36,10 @@ public class AIHelper {
 			}
 		}
 		return 0;
+	}
+	private boolean isWinningLine()
+	{
+		return true;
 	}
 
 }
