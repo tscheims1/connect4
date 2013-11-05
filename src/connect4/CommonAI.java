@@ -6,7 +6,7 @@ public class CommonAI extends Player{
 	{
 		this.isHumanPlayer = false;
 	}
-	public int drop()
+	public int drop(int board[][])
 	{
 		return 1;
 	}

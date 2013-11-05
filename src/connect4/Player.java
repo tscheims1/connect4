@@ -4,6 +4,6 @@ abstract public class Player {
 
 	boolean isHumanPlayer;
 	
-	abstract public int drop();
+	abstract public int drop(int board[][]);
 	
 }

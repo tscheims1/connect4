@@ -59,16 +59,24 @@ public class Game extends JFrame{
 	 */
 	private void loop()
 	{
-		for(int i = 0;i < Game.ROWS*Game.COLS;i++)
+		for(int i = 0;i < Game.ROWS*Game.COLS;)
 		{
-			//int nextDrop = players[i%2].drop();
-			Scanner sc = new Scanner(System.in);
-			int nextDrop = sc.nextInt();
-			this.insertDrop(nextDrop,i%2 +1);
+			int nextDrop = players[i%2].drop(this.board);
+			
+			/*
+			 * Workarround for testing the game logic
+			 */
+			
+			
+			/*
+			 * Only continue the when the move is valid
+			 */
+			if(this.insertDrop(nextDrop,i%2 +1))
+				i++;
 			
 			if(GameHelper.hasPlayerWon(this.board, i%2+1))
 			{
-				System.out.println("player"+i%2+1);
+				System.out.println("player"+(i%2+1));
 			}
 			System.out.println(this.board);
 			this.repaint();
@@ -80,7 +88,7 @@ public class Game extends JFrame{
 	 * @param col
 	 * @param player
 	 */
-	private void insertDrop(int col,int player)
+	private boolean insertDrop(int col,int player)
 	{
 		for(int i = 0; i < Game.ROWS;i++)
 		{
@@ -89,8 +97,9 @@ public class Game extends JFrame{
 				//System.out.println(i +"    "+ col);
 				this.board[col-1][i] = player;
 				this.gameComponents.add(new Stone(col,i+1,player));
-				break;
+				return true;
 			}
 		}
+		return false;
 	}
 }
