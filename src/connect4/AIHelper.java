@@ -9,16 +9,29 @@ public class AIHelper {
 	 * @param player
 	 * @return
 	 */
-	public int countWinningLines(int board[][],int lastDrop,int player)
+	public int countWinningLines(int board[][],int lastDropX,int player)
 	{
-		int lastDropY = this.getCurrentRow(board, lastDrop);
+		int lastDropY = this.getCurrentRow(board, lastDropX);
+		int count = 0;
+		/*
+		 * Check all posibilitys 4 fields around the drop
+		 */
+		for(int x = -3; x < 4; x++)
+		{
+			if(lastDropX +x  < 0 || lastDropX+x >= Game.COLS)
+				continue;
+			
+			if((lastDropY ==0)  || (board[lastDropX +x][lastDropY-1] != player ))
+			{
+					count+= this.getWinningLines(board, lastDropX+x, lastDropY, player);
+			}
+					
+		}
 		
-		
-		int countLines = 0;
 		/*
 		 *check all winnin lines
 		 */
-		return 1;
+		return count;
 	}
 	/**
 	 * Get the row of the last Drop
