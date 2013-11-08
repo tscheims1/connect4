@@ -3,6 +3,7 @@ package connect4;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.KeyListener;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
@@ -42,6 +43,7 @@ public class Game extends JFrame{
 		
 		
 		players[0] = new HumanPlayer();
+		this.addKeyListener((KeyListener) players[0]);
 		players[1] = new CommonAI();
 		
 		this.setSize(500, 500);
