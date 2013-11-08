@@ -77,6 +77,7 @@ public class Game extends JFrame{
 			if(GameHelper.hasPlayerWon(this.board, i%2+1))
 			{
 				System.out.println("player"+(i%2+1));
+				break;
 			}
 			System.out.println(this.board);
 			this.repaint();

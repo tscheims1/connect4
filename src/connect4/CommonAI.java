@@ -20,7 +20,7 @@ public class CommonAI extends Player{
 	}
 	public int drop(int board[][])
 	{
-		int [] rate =  new int[7];
+		int [] rate =  new int[Game.COLS];
 		for(int x = 0; x < Game.COLS; x++)
 		{
 			int yDrop = GameHelper.makeFakeMove(board, x, this.player);
@@ -38,7 +38,9 @@ public class CommonAI extends Player{
 			 */
 			System.out.println("#####current move:######"+x);
 			rate[x] = this.aiHelper.countWinningLines(tmpBoard, x,yDrop, this.player);
-		}
+			rate[x] += this.aiHelper.countWiningMove(tmpBoard, this.player);
+			rate[x] += this.aiHelper.countWiningMove(tmpBoard, player);
+  		}
 		int maxValue = Integer.MIN_VALUE;
 		
 		/*

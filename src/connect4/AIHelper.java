@@ -60,13 +60,17 @@ public class AIHelper {
 		}
 		return 0;
 	}
-	/**
-	 * Get the amount of winning lines at a specific position
+
+
+	 /** Get the amount of winning lines at a specific position
 	 * TODO: Improve Diagonal Checks
 	 * @param board
 	 * @param x
 	 * @param y
 	 * @param player
+	 * @param containsX
+	 * @param containsY
+	 * @param reverseCheck
 	 * @return
 	 */
 	private int getWinningLines(int board[][], int x,int y,int player,int containsX,int containsY,boolean reverseCheck)
@@ -151,6 +155,42 @@ public class AIHelper {
 		}
 		System.out.println("winingLines"+countLines);
 		return countLines;
+	}
+	/**
+	 * get the amount of the last move. check it against the win condition
+	 * @param board
+	 * @param player
+	 * @return
+	 */
+	public int countWiningMove(int [][]board,int player)
+	{
+		
+		if(GameHelper.hasPlayerWon(board, player))
+			return 100;
+		return 0;
+	}
+	public int countMoveAbove(int [][]board,int player)
+	{
+		int [][] tmpBoard = GameHelper.copyBoard(board);
+		
+		/*
+		 * Count this pattern only if the gave isn't finisch
+		 */
+		if(GameHelper.hasPlayerWon(tmpBoard, player))
+			return 0;
+		/*
+		 * Change the player for checking against
+		 */
+		if(player == 1)
+			player = 0;
+		else
+			player = 1;
+		
+		
+		if(GameHelper.hasPlayerWon(tmpBoard, player))
+			return -99;
+		return 0;
+		
 	}
 
 }
