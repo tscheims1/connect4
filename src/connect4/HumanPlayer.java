@@ -19,7 +19,7 @@ public class HumanPlayer extends Player{
 			/*
 			 * Only return a valid input
 			 */
-			if(nextInt >= 0 && nextInt < Game.COLS)
+			if(nextInt >= 0 && nextInt <= Game.COLS)
 				return nextInt;
 		}
 	}

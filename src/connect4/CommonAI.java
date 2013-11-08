@@ -26,12 +26,14 @@ public class CommonAI extends Player{
 			int yDrop = GameHelper.makeFakeMove(board, x, this.player);
 			int [][] tmpBoard = GameHelper.copyBoard(board);
 			
-			tmpBoard[x][yDrop] = this.player;
 			/*
 			 * if its a invalid drop
 			 */
 			if(yDrop ==-1)
 				continue;
+			
+			tmpBoard[x][yDrop] = this.player;
+			
 			
 			/*
 			 * Rate all Moves
