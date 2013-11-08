@@ -13,6 +13,12 @@ public class AIHelper {
 	{
 		//int lastDropY = this.getCurrentRow(board, lastDropX);
 		int count = 0;
+		
+		/*
+		 * Ugly fix for not counting some conditions twice
+		 */
+		boolean reverseCheck = true;
+		
 		/*
 		 * Check all posibilitys 4 fields around the drop
 		 */
@@ -21,10 +27,12 @@ public class AIHelper {
 			if((lastDropX +x)  < 0 || (lastDropX+x) >= Game.COLS)
 				continue;
 			
-			if((lastDropY ==0)  || (board[lastDropX +x][lastDropY-1] != player ))
+			if((x == 0)||((lastDropY ==0)  || (board[lastDropX +x][lastDropY-1] != player )))
 			{
+					if(x > 0)
+						reverseCheck = false;
 					System.out.println("welches element:"+(lastDropX+x));
-					count+= this.getWinningLines(board, (lastDropX+x), lastDropY, player,lastDropX,lastDropY);
+					count+= this.getWinningLines(board, (lastDropX+x), lastDropY, player,lastDropX,lastDropY, reverseCheck);
 			}
 					
 		}
@@ -61,14 +69,15 @@ public class AIHelper {
 	 * @param player
 	 * @return
 	 */
-	private int getWinningLines(int board[][], int x,int y,int player,int containsX,int containsY)
+	private int getWinningLines(int board[][], int x,int y,int player,int containsX,int containsY,boolean reverseCheck)
 	{
 		int countLines  = 0;
 		/*
 		 * from left to right horizontal
 		 */
-		if(x + 3 < Game.COLS && x <= containsX && x+3 >= containsX)
+		if(x + 3 < Game.COLS && x <= containsX && x+3 > containsX)
 		{
+			System.out.println("horizontal l to r");
 			if((board[x+1][y] == 0 || board[x+1][y] == player)&&
 				(board[x+2][y] == 0 || board[x+2][y] == player)&&
 				(board[x+3][y] == 0 || board[x+3][y] == player))
@@ -77,8 +86,9 @@ public class AIHelper {
 		/*
 		 * from right to left horizontal
 		 */
-		if(x - 3 >= 0 && x >= containsX && x-3 <= containsX)
+		if(x - 3 >= 0 && x >= containsX && x-3 < containsX && reverseCheck)
 		{
+			System.out.println("horizontal r to l ");
 			if((board[x-1][y] == 0 || board[x-1][y] == player)&&
 					(board[x-2][y] == 0 || board[x-2][y] == player)&&
 					(board[x-3][y] == 0 || board[x-3][y] == player))
@@ -89,6 +99,7 @@ public class AIHelper {
 		 */
 		if(y +3 < Game.ROWS && containsX ==x )
 		{
+			System.out.println("bottom to top");
 			if((board[x][y+1] == 0 || board[x][y+1] == player)&&
 					(board[x][y+2] == 0 || board[x][y+2] == player)&&
 					(board[x][y+3] == 0 || board[x][y+3] == player))
@@ -99,6 +110,7 @@ public class AIHelper {
 		 */
 		if(y +3 < Game.ROWS && x + 3 < Game.COLS && containsX ==x )
 		{
+			System.out.println("Diagonal from left to right,bottom to top");
 			if((board[x+1][y+1] == 0 || board[x+1][y+1] == player)&&
 					(board[x+2][y+2] == 0 || board[x+2][y+2] == player)&&
 					(board[x+3][y+3] == 0 || board[x+3][y+3] == player))
@@ -109,6 +121,7 @@ public class AIHelper {
 		 */
 		if(y -3 >=0 && x - 3 >= 0 && containsX ==x )
 		{
+			System.out.println("Diagonal from right to left, top to bottm");
 			if((board[x-1][y-1] == 0 || board[x-1][y-1] == player)&&
 					(board[x-2][y-2] == 0 || board[x-2][y-2] == player)&&
 					(board[x-3][y-3] == 0 || board[x-3][y-3] == player))
@@ -119,6 +132,7 @@ public class AIHelper {
 		 */
 		if(y +3 < Game.ROWS && x - 3 >=  0&& containsX ==x )
 		{
+			System.out.println("Diagonal from right to left, bottom to top");
 			if((board[x-1][y+1] == 0 || board[x-1][y+1] == player)&&
 					(board[x-2][y+2] == 0 || board[x-2][y+2] == player)&&
 					(board[x-3][y+3] == 0 || board[x-3][y+3] == player))
@@ -129,6 +143,7 @@ public class AIHelper {
 		 */
 		if(y -3 >= 0 && x +3 < Game.COLS && containsX ==x )
 		{
+			System.out.println("Diagonal from right to left, bottom to top");
 			if((board[x+1][y-1] == 0 || board[x+1][y-1] == player)&&
 					(board[x+2][y-2] == 0 || board[x+2][y-2] == player)&&
 					(board[x+3][y-3] == 0 || board[x+3][y-3] == player))

@@ -36,7 +36,7 @@ public class CommonAI extends Player{
 			/*
 			 * Rate all Moves
 			 */
-			System.out.println("current move:"+x);
+			System.out.println("#####current move:######"+x);
 			rate[x] = this.aiHelper.countWinningLines(tmpBoard, x,yDrop, this.player);
 		}
 		int maxValue = Integer.MIN_VALUE;
