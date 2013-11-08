@@ -17,7 +17,7 @@ public class HumanPlayer extends Player implements KeyListener {
 	public int drop(int [][]board)
 	{
 		this.canPress = true;
-		Scanner sc = new Scanner(System.in);
+		
 		for(;;)
 		{
 			
