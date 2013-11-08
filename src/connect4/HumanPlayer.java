@@ -21,25 +21,26 @@ public class HumanPlayer extends Player implements KeyListener {
 		for(;;)
 		{
 			
-			//int nextInt = 	sc.nextInt();
+			
 			int nextInt = this.pressedKey;
 			
-			System.out.println("asdf"+nextInt);
+			
 			/*
 			 * Only return a valid input
 			 */
 			if(nextInt >= 0 && nextInt <= Game.COLS)
 			{
 				this.canPress = false;
+				this.pressedKey  = -1;
 				return nextInt;
 			}
 		}
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println("asdf");
+		
 		if(this.canPress)
-			this.pressedKey = (int)e.getKeyChar();
+			this.pressedKey = Character.getNumericValue((int)e.getKeyChar());
 			
 		// TODO Auto-generated method stub
 		
@@ -47,7 +48,7 @@ public class HumanPlayer extends Player implements KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+		this.pressedKey = -1;
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {
