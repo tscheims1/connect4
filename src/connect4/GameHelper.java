@@ -101,4 +101,17 @@ public class GameHelper {
 		
 		return -1;
 	}
+	/*
+	 * Copy a Copy of the gameBoard
+	 * @param board
+	 * @return
+	 */
+	public static int[][]copyBoard(int [][]board)
+	{
+		int[][] dest = new int[Game.COLS][Game.ROWS];
+		for (int i = 0; i < board.length; i++) {
+		    System.arraycopy(board[i], 0, dest[i], 0, board[0].length);
+		}
+		return dest;
+	}
 }

@@ -1,5 +1,9 @@
 package connect4;
 
+import java.util.Arrays;
+
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+
 public class CommonAI extends Player{
 	
 	/*
@@ -20,6 +24,9 @@ public class CommonAI extends Player{
 		for(int x = 0; x < Game.COLS; x++)
 		{
 			int yDrop = GameHelper.makeFakeMove(board, x, this.player);
+			int [][] tmpBoard = GameHelper.copyBoard(board);
+			
+			tmpBoard[x][yDrop] = this.player;
 			/*
 			 * if its a invalid drop
 			 */
@@ -29,7 +36,7 @@ public class CommonAI extends Player{
 			/*
 			 * Rate all Moves
 			 */
-			rate[x] = this.aiHelper.countWinningLines(board, x,yDrop, player);
+			rate[x] = this.aiHelper.countWinningLines(tmpBoard, x,yDrop, this.player);
 		}
 		int maxValue = Integer.MIN_VALUE;
 		
@@ -64,6 +71,7 @@ public class CommonAI extends Player{
 	{
 		return 1;
 	}
+
 	
 
 }

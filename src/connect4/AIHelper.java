@@ -23,6 +23,7 @@ public class AIHelper {
 			
 			if((lastDropY ==0)  || (board[lastDropX +x][lastDropY-1] != player ))
 			{
+				
 					count+= this.getWinningLines(board, lastDropX+x, lastDropY, player);
 			}
 					
@@ -37,6 +38,7 @@ public class AIHelper {
 	 * Get the row of the last Drop
 	 * @param board
 	 * @param lastDrop
+	 * @deprecated dont use this method
 	 * @return
 	 */
 	private int getCurrentRow(int board[][],int lastDrop)
@@ -131,6 +133,7 @@ public class AIHelper {
 					(board[x+3][y-3] == 0 || board[x+3][y-3] == player))
 					countLines++;
 		}
+		System.out.println("winingLines"+countLines);
 		return countLines;
 	}
 
