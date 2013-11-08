@@ -79,5 +79,26 @@ public class GameHelper {
 		}
 		
 		return false;
+}
+	/**
+	 * This method make a fakeMove and get the y positon of the move
+	 * if the move isn't valid, the return value is -1 
+	 * @param board
+	 * @param dropX
+	 * @param player
+	 * @return
+	 */
+	public static int makeFakeMove(int board[][],int dropX, int player)
+	{
+		for(int y = 0; y < Game.ROWS; y++)
+		{
+			if(board[dropX][y] == 0)
+			{
+				
+				return y;		
+			}
+		}
+		
+		return -1;
 	}
 }

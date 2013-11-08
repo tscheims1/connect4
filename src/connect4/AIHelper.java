@@ -9,9 +9,9 @@ public class AIHelper {
 	 * @param player
 	 * @return
 	 */
-	public int countWinningLines(int board[][],int lastDropX,int player)
+	public int countWinningLines(int board[][],int lastDropX,int lastDropY,int player)
 	{
-		int lastDropY = this.getCurrentRow(board, lastDropX);
+		//int lastDropY = this.getCurrentRow(board, lastDropX);
 		int count = 0;
 		/*
 		 * Check all posibilitys 4 fields around the drop
