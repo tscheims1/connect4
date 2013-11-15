@@ -259,7 +259,7 @@ public class AIHelper {
 		/*
 		 * second: right to left
 		 */
-		for(int x = xDrop-1; x >= 0;x++)
+		for(int x = xDrop-1; x >= 0;x--)
 		{
 			if(board[x][yDrop] == player || board[x][yDrop] == 0)
 				tmpCount++;
