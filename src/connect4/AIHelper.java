@@ -246,6 +246,21 @@ public class AIHelper {
 		tmpCount = 0;
 		
 		/*
+		 * find out where the farest stone is (in range of 4 cols)
+		 */
+		for(int x = 3; x >=0;x--)
+		{
+			if(board[x][yDrop] == player)
+			{
+				if(this.checkVerticalLine(board, xDrop, yDrop, x, player))
+				{
+					tmpCount = x+1;
+					break;
+				}
+			}
+		}
+		
+		/*
 		 * Count vertical stones
 		 * first:left to right
 		 */
@@ -318,7 +333,19 @@ public class AIHelper {
 				break;
 		}
 		count = Math.max(count,tmpCount);
+		System.out.println("stones arround"+count);
 		return count;
+	}
+	private boolean checkVerticalLine(int [][]board,int xDrop,int yDrop,int endX,int player)
+	{
+		int enemy = this.changePlayer(player);
+		for(int x = xDrop; x < endX; x++)
+		{
+			if(board[x][yDrop] == enemy)
+				return false;
+				
+		}
+		return true;
 	}
 
 
