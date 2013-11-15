@@ -172,25 +172,26 @@ public class AIHelper {
 		}
 		return 0;
 	}
-	public int countMoveAbove(int [][]board,int player,int xDrop,int yDrop)
+	public int countMoveAbove(int [][]board,int player,int xDrop)
 	{
 		int [][] tmpBoard = GameHelper.copyBoard(board);
 		
 		/*
-		 * Count this pattern only if the gave isn't finisch
+		 * Count this pattern only if this isn't a winning move
 		 */
 		if(GameHelper.hasPlayerWon(tmpBoard, player))
 			return 0;
 		/*
 		 * Change the player for checking against
 		 */
-		if(player == 1)
-			player = 0;
-		else
-			player = 1;
+		player = this.changePlayer(player);
 		
-		//tmpBoard[xDrop][yDrop+1] = 
+		int yDrop = GameHelper.makeFakeMove(tmpBoard, xDrop, player);
 		
+		if(yDrop == -1)
+			return 0;
+		
+		tmpBoard[xDrop][yDrop] = player;
 		if(GameHelper.hasPlayerWon(tmpBoard, player))
 			return -99;
 		return 0;
@@ -204,7 +205,7 @@ public class AIHelper {
 	 * @param yDrop
 	 * @return
 	 */
-	public static int  countBlockEnemyMove(int [][] board,int player,int xDrop,int yDrop)
+	public  int  countBlockEnemyMove(int [][] board,int player,int xDrop,int yDrop)
 	{
 		int [][]tmpBoard = GameHelper.copyBoard(board);
 		int enemy =  changePlayer(player);
@@ -220,7 +221,7 @@ public class AIHelper {
 	 * @param player
 	 * @return
 	 */
-	public static int changePlayer(int player)
+	public  int changePlayer(int player)
 	{
 		if(player == 1)
 			return 2;

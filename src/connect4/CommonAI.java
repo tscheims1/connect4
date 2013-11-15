@@ -45,6 +45,7 @@ public class CommonAI extends Player{
 			rate[x] = this.aiHelper.countWinningLines(tmpBoard, x,yDrop, this.player);
 			rate[x] += this.aiHelper.countWiningMove(tmpBoard, this.player);
 			rate[x] += this.aiHelper.countBlockEnemyMove(tmpBoard, this.player, x, yDrop);
+			rate[x] += this.aiHelper.countMoveAbove(tmpBoard, this.player,x);
 			//rate[x] += this.aiHelper.countMoveAbove(tmpBoard, this.player, x,yDrop);
 			//rate[x] += this.aiHelper.countWiningMove(tmpBoard, player);
 			GameHelper.printBoard(board);
