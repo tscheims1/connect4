@@ -49,7 +49,7 @@ public class CommonAI extends Player{
 			rate[x] += this.aiHelper.coutStonesInARow(tmpBoard, this.player, x, yDrop);
 			
 			//rate[x] += this.aiHelper.countWiningMove(tmpBoard, player);
-			GameHelper.printBoard(board);
+			GameHelper.printBoard(tmpBoard);
 			
   		}
 		int maxValue = Integer.MIN_VALUE;

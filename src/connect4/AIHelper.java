@@ -250,9 +250,9 @@ public class AIHelper {
 		 */
 		for(int x = 3; x >=0;x--)
 		{
-			if(board[x][yDrop] == player)
+			if(x+ xDrop < Game.COLS && board[x][yDrop] == player)
 			{
-				if(this.checkVerticalLine(board, xDrop, yDrop, x, player))
+				if(this.checkVerticalLine(board, xDrop, yDrop, xDrop+x, player))
 				{
 					tmpCount = x+1;
 					break;
@@ -260,6 +260,18 @@ public class AIHelper {
 			}
 		}
 		
+		for(int x = 3; x >=0;x--)
+		{
+			if(x- xDrop >= 0 && board[x][yDrop] == player)
+			{
+				if(this.checkVerticalLine(board, xDrop, yDrop, xDrop-x, player))
+				{
+					tmpCount = x+1;
+					break;
+				}
+			}
+		}
+		Math.max(tmpCount, count);
 		/*
 		 * Count vertical stones
 		 * first:left to right
@@ -267,7 +279,7 @@ public class AIHelper {
 		for(int x = xDrop;x < Game.COLS;x++)
 		{
 			if(board[x][yDrop] == player || board[x][yDrop] == 0)
-				tmpCount++;
+				;//tmpCount++;
 			else
 				break;
 		}
@@ -277,7 +289,7 @@ public class AIHelper {
 		for(int x = xDrop-1; x >= 0;x--)
 		{
 			if(board[x][yDrop] == player || board[x][yDrop] == 0)
-				tmpCount++;
+				;//;tmpCount++;
 			else
 				break;
 		}
@@ -294,7 +306,7 @@ public class AIHelper {
 		for(int x = xDrop,y = yDrop;x >= 0 && y < Game.ROWS; x--,y++)
 		{
 			if(board[x][y] == player || board[x][y] == 0)
-				tmpCount++;
+				;//tmpCount++;
 			else
 				break;
 		}
@@ -302,7 +314,7 @@ public class AIHelper {
 		for(int x = xDrop,y = yDrop-1; y>=0 && x>=0;x--,y--)
 		{
 			if(board[x][y] == player || board[x][y] == 0)
-				tmpCount++;
+				;//tmpCount++;
 			else
 				break;
 		}
@@ -320,7 +332,7 @@ public class AIHelper {
 		for(int x = xDrop,y = yDrop;x<Game.COLS && y< Game.ROWS; y++,x++)
 		{
 			if(board[x][y] == player || board[x][y] == 0)
-				tmpCount++;
+				;//tmpCount++;
 			else
 				break;
 		}
@@ -328,7 +340,7 @@ public class AIHelper {
 		for(int x = xDrop,y = yDrop-1;x<Game.COLS && y>= 0; y--,x++)
 		{
 			if(board[x][y] == player || board[x][y] == 0)
-				tmpCount++;
+				;//tmpCount++;
 			else
 				break;
 		}
