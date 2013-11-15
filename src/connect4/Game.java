@@ -63,7 +63,10 @@ public class Game extends JFrame{
 	{
 		for(int i = 0;i < Game.ROWS*Game.COLS;)
 		{
-			int nextDrop = players[i%2].drop(this.board);
+			/*
+			 * TODO: Only Copy Board for the AI
+			 */
+			int nextDrop = players[i%2].drop(GameHelper.copyBoard(this.board));
 			
 			/*
 			 * Workarround for testing the game logic
@@ -74,15 +77,19 @@ public class Game extends JFrame{
 			 * Only continue the when the move is valid
 			 */
 			if(this.insertDrop(nextDrop,i%2 +1))
-				i++;
+				
+			this.repaint();
+			
 			
 			if(GameHelper.hasPlayerWon(this.board, i%2+1))
 			{
+				
 				System.out.println("player"+(i%2+1));
 				break;
 			}
+			i++;
 			System.out.println(this.board);
-			this.repaint();
+			
 		}
 		
 	}

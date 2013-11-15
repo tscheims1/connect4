@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class HumanPlayer extends Player implements KeyListener {
 
-	private boolean canPress = false;
+	private boolean canPress = true;
 	private int pressedKey = -1;
 	
 	public HumanPlayer()
@@ -20,11 +20,16 @@ public class HumanPlayer extends Player implements KeyListener {
 		
 		for(;;)
 		{
-			
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			int nextInt = this.pressedKey;
-			
-			
+		
+			//System.out.println(nextInt);
 			/*
 			 * Only return a valid input
 			 */
@@ -38,9 +43,9 @@ public class HumanPlayer extends Player implements KeyListener {
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
+		//System.out.println(Character.getNumericValue((int)e.getKeyChar()));
 		
-		if(this.canPress)
-			this.pressedKey = Character.getNumericValue((int)e.getKeyChar());
+		this.pressedKey = Character.getNumericValue((int)e.getKeyChar());
 			
 		// TODO Auto-generated method stub
 		
@@ -48,7 +53,7 @@ public class HumanPlayer extends Player implements KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		this.pressedKey = -1;
+		
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {

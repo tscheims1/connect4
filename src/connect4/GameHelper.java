@@ -114,4 +114,14 @@ public class GameHelper {
 		}
 		return dest;
 	}
+	public static void printBoard(int [][] board)
+	{
+		System.out.println("get board");
+		for (int i =  Game.ROWS-1; i >=0; i--) {
+		    for (int j = 0; j < Game.COLS; j++) {
+		        System.out.print(board[j][i] + " ");
+		    }
+		    System.out.print("\n");
+		}
+	}
 }

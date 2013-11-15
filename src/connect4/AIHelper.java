@@ -166,10 +166,13 @@ public class AIHelper {
 	{
 		
 		if(GameHelper.hasPlayerWon(board, player))
+		{
+			System.out.println("player has won");
 			return 100;
+		}
 		return 0;
 	}
-	public int countMoveAbove(int [][]board,int player)
+	public int countMoveAbove(int [][]board,int player,int xDrop,int yDrop)
 	{
 		int [][] tmpBoard = GameHelper.copyBoard(board);
 		
@@ -186,11 +189,43 @@ public class AIHelper {
 		else
 			player = 1;
 		
+		//tmpBoard[xDrop][yDrop+1] = 
 		
 		if(GameHelper.hasPlayerWon(tmpBoard, player))
 			return -99;
 		return 0;
 		
+	}
+	/**
+	 * Count if the current Move blocks a 4 for in a row for the enemy
+	 * @param board
+	 * @param player
+	 * @param xDrop
+	 * @param yDrop
+	 * @return
+	 */
+	public static int  countBlockEnemyMove(int [][] board,int player,int xDrop,int yDrop)
+	{
+		int [][]tmpBoard = GameHelper.copyBoard(board);
+		int enemy =  changePlayer(player);
+		tmpBoard[xDrop][yDrop] =enemy;
+		if(GameHelper.hasPlayerWon(tmpBoard, enemy))
+		{
+			return 80;
+		}
+		return 0;
+	}
+	/**
+	 * This helper method change the player
+	 * @param player
+	 * @return
+	 */
+	public static int changePlayer(int player)
+	{
+		if(player == 1)
+			return 2;
+		else
+			return 1;
 	}
 
 }

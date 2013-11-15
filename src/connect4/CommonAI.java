@@ -11,7 +11,7 @@ public class CommonAI extends Player{
 	 */
 	private int deep = 3;
 	private AIHelper aiHelper;
-	private int player = 1;
+	private int player = 2;
 	
 	public CommonAI()
 	{
@@ -26,11 +26,14 @@ public class CommonAI extends Player{
 			int yDrop = GameHelper.makeFakeMove(board, x, this.player);
 			int [][] tmpBoard = GameHelper.copyBoard(board);
 			
+			
+			System.out.println("XDROP:"+x+"YDrop:"+yDrop);
 			/*
 			 * if its a invalid drop
 			 */
 			if(yDrop ==-1)
 				continue;
+			
 			
 			tmpBoard[x][yDrop] = this.player;
 			
@@ -41,7 +44,11 @@ public class CommonAI extends Player{
 			System.out.println("#####current move:######"+x);
 			rate[x] = this.aiHelper.countWinningLines(tmpBoard, x,yDrop, this.player);
 			rate[x] += this.aiHelper.countWiningMove(tmpBoard, this.player);
-			rate[x] += this.aiHelper.countWiningMove(tmpBoard, player);
+			rate[x] += this.aiHelper.countBlockEnemyMove(tmpBoard, this.player, x, yDrop);
+			//rate[x] += this.aiHelper.countMoveAbove(tmpBoard, this.player, x,yDrop);
+			//rate[x] += this.aiHelper.countWiningMove(tmpBoard, player);
+			GameHelper.printBoard(board);
+			
   		}
 		int maxValue = Integer.MIN_VALUE;
 		
@@ -58,6 +65,7 @@ public class CommonAI extends Player{
 				bestMove = x;
 			}
 		}
+		System.out.println("get move back");
 		return (bestMove+1);
 	}
 	private int maxValue()
