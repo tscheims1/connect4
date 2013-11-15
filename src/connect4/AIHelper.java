@@ -228,5 +228,98 @@ public class AIHelper {
 		else
 			return 1;
 	}
+	public int coutStonesInARow(int [][] board,int player,int xDrop,int yDrop)
+	{
+		int count = 0;
+		/*
+		 * Count the horizontal stones
+		 */
+		int tmpCount = 0;
+		for(int y = yDrop; y >= 0;y--)
+		{
+			if(board[xDrop][y] == player || board[xDrop][y] == 0)
+				tmpCount++;
+			else
+				break;
+		}
+		count = tmpCount;
+		tmpCount = 0;
+		
+		/*
+		 * Count vertical stones
+		 * first:left to right
+		 */
+		for(int x = xDrop;x < Game.COLS;x++)
+		{
+			if(board[x][yDrop] == player || board[x][yDrop] == 0)
+				tmpCount++;
+			else
+				break;
+		}
+		/*
+		 * second: right to left
+		 */
+		for(int x = xDrop-1; x >= 0;x++)
+		{
+			if(board[x][yDrop] == player || board[x][yDrop] == 0)
+				tmpCount++;
+			else
+				break;
+		}
+		count = Math.max(tmpCount, count);
+		tmpCount = 0;
+		/*
+		 * Count diagonal stones
+		 * X
+		 *   X
+		 *     X
+		 *       X
+		 */
+		//first: from buttom to top
+		for(int x = xDrop,y = yDrop;x >= 0 && y < Game.ROWS; x--,y++)
+		{
+			if(board[x][y] == player || board[x][y] == 0)
+				tmpCount++;
+			else
+				break;
+		}
+		//second: from top to buttom
+		for(int x = xDrop,y = yDrop-1; y>=0 && x>=0;x--,y--)
+		{
+			if(board[x][y] == player || board[x][y] == 0)
+				tmpCount++;
+			else
+				break;
+		}
+		count = Math.max(tmpCount, count);
+		tmpCount =0;
+		
+		/*
+		 * Count diagonal stones
+		 *         X
+		 *        X
+		 *       X
+		 *      X
+		 */
+		//first from bottom to top
+		for(int x = xDrop,y = yDrop;x<Game.COLS && y< Game.ROWS; y++,x++)
+		{
+			if(board[x][y] == player || board[x][y] == 0)
+				tmpCount++;
+			else
+				break;
+		}
+		//secound from top to bottom
+		for(int x = xDrop,y = yDrop-1;x<Game.COLS && y>= 0; y--,x++)
+		{
+			if(board[x][y] == player || board[x][y] == 0)
+				tmpCount++;
+			else
+				break;
+		}
+		count = Math.max(count,tmpCount);
+		return count;
+	}
+
 
 }
