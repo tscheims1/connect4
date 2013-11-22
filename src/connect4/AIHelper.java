@@ -228,7 +228,7 @@ public class AIHelper {
 		else
 			return 1;
 	}
-	public int coutStonesInARow(int [][] board,int player,int xDrop,int yDrop)
+	public int countStonesInARow(int [][] board,int player,int xDrop,int yDrop)
 	{
 		int count = 0;
 		/*
@@ -259,7 +259,6 @@ public class AIHelper {
 				}
 			}
 		}
-		
 		for(int x = 3; x >=0;x--)
 		{
 			if(xDrop-x  >= 0 && board[xDrop-x][yDrop] == player)
@@ -352,7 +351,8 @@ public class AIHelper {
 		return count;
 	}
 	/**
-	 * TODO: Fix this buggy function. get always 4 Stones arround back --why??
+	 * ugly workaround...
+	 * TODO: remove the workaround
 	 * @param board
 	 * @param xDrop
 	 * @param yDrop
