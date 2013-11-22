@@ -327,51 +327,82 @@ public class AIHelper {
 			}
 		}
 		System.out.println("diagonal Count"+tmpCount);
-		count = Math.max(tmpCount, count);
-		tmpCount =0;
-		
-		
-		for(int x = xDrop,y = yDrop;x >= 0 && y < Game.ROWS; x--,y++)
-		{
-			if(board[x][y] == player || board[x][y] == 0)
-				;//tmpCount++;
-			else
-				break;
-		}
-		//second: from top to buttom
-		for(int x = xDrop,y = yDrop-1; y>=0 && x>=0;x--,y--)
-		{
-			if(board[x][y] == player || board[x][y] == 0)
-				;//tmpCount++;
-			else
-				break;
-		}
-		count = Math.max(tmpCount, count);
+		count = Math.max(tmpCount+1, count);
 		tmpCount =0;
 		
 		/*
-		 * Count diagonal stones
-		 *         X
-		 *        X
+		 * count diagonal stones
+		 * X 
+		 *   X 
+		 *     X
 		 *       X
-		 *      X
 		 */
-		//first from bottom to top
-		for(int x = xDrop,y = yDrop;x<Game.COLS && y< Game.ROWS; y++,x++)
+		for(int x = 3; x >=0; x--)
 		{
-			if(board[x][y] == player || board[x][y] == 0)
-				;//tmpCount++;
-			else
-				break;
+			if(x+ xDrop < Game.COLS && yDrop -x >=0 &&  board[xDrop+x][yDrop-x] == player)
+			{
+				if(this.checkDiagonalLine(board, xDrop, yDrop, xDrop+x, yDrop-x, player))
+				{
+					tmpCount = x;
+					break;
+				}
+			}
 		}
-		//secound from top to bottom
-		for(int x = xDrop,y = yDrop-1;x<Game.COLS && y>= 0; y--,x++)
+		for(int x = 3; x >=0; x--)
 		{
-			if(board[x][y] == player || board[x][y] == 0)
-				;//tmpCount++;
-			else
-				break;
+			if( xDrop-x >= 0 && yDrop+x < Game.ROWS &&  board[xDrop-x][yDrop+x] == player)
+			{
+				if(this.checkDiagonalLine(board, xDrop, yDrop, xDrop-x, x+yDrop, player))
+				{
+					tmpCount += x;
+					break;
+				}
+			}
 		}
+		
+		
+//		
+//		for(int x = xDrop,y = yDrop;x >= 0 && y < Game.ROWS; x--,y++)
+//		{
+//			if(board[x][y] == player || board[x][y] == 0)
+//				;//tmpCount++;
+//			else
+//				break;
+//		}
+//		//second: from top to buttom
+//		for(int x = xDrop,y = yDrop-1; y>=0 && x>=0;x--,y--)
+//		{
+//			if(board[x][y] == player || board[x][y] == 0)
+//				;//tmpCount++;
+//			else
+//				break;
+//		}
+//		count = Math.max(tmpCount, count);
+//		tmpCount =0;
+//		
+//		/*
+//		 * Count diagonal stones
+//		 *         X
+//		 *        X
+//		 *       X
+//		 *      X
+//		 */
+//		//first from bottom to top
+//		for(int x = xDrop,y = yDrop;x<Game.COLS && y< Game.ROWS; y++,x++)
+//		{
+//			if(board[x][y] == player || board[x][y] == 0)
+//				;//tmpCount++;
+//			else
+//				break;
+//		}
+//		//secound from top to bottom
+//		for(int x = xDrop,y = yDrop-1;x<Game.COLS && y>= 0; y--,x++)
+//		{
+//			if(board[x][y] == player || board[x][y] == 0)
+//				;//tmpCount++;
+//			else
+//				break;
+//		}
 		count = Math.max(count,tmpCount);
 		System.out.println("stones arround"+count);
 		return count;
@@ -427,7 +458,7 @@ public class AIHelper {
 		 * Count from bottom to top,
 		 * from left to right
 		 */
-		if(endX > xDrop && endY > xDrop)
+		if(endX >= xDrop && endY >= xDrop)
 		{
 			for(int x = xDrop,y = yDrop; x >= endX; x--,y--)
 			{
@@ -437,7 +468,11 @@ public class AIHelper {
 			}
 			
 		}
-		else
+		/*
+		 * Count from top to bottom
+		 * from left to right
+		 */
+		else if(endX < xDrop && endY < xDrop)
 		{
 			for(int x = xDrop,y = yDrop; x <= endX; x++,y++)
 			{
@@ -447,6 +482,30 @@ public class AIHelper {
 			}
 			
 		}
+		/*
+		 * Count from bottom to top
+		 * left to right
+		 */
+		else if(endX <= xDrop && yDrop <= endY)
+		{
+			for(int x = xDrop,y = yDrop; x <= endX; x--,y++)
+			{
+				if(board[x][y] == enemy)
+					return false;
+					
+			}
+		}
+		else if(endX > xDrop && yDrop > endY)
+		{
+			for(int x = xDrop,y = yDrop; x <= endX; x++,y--)
+			{
+				if(board[x][y] == enemy)
+					return false;
+					
+			}
+		}
+		
+		
 		
 		
 		return true;
