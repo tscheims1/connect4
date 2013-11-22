@@ -250,11 +250,11 @@ public class AIHelper {
 		 */
 		for(int x = 3; x >=0;x--)
 		{
-			if(x+ xDrop < Game.COLS && board[x][yDrop] == player)
+			if(x+ xDrop < Game.COLS && board[xDrop+x][yDrop] == player)
 			{
 				if(this.checkVerticalLine(board, xDrop, yDrop, xDrop+x, player))
 				{
-					tmpCount = x+1;
+					tmpCount = x;
 					break;
 				}
 			}
@@ -262,20 +262,23 @@ public class AIHelper {
 		
 		for(int x = 3; x >=0;x--)
 		{
-			if(x- xDrop >= 0 && board[x][yDrop] == player)
+			if(xDrop-x  >= 0 && board[xDrop-x][yDrop] == player)
 			{
 				if(this.checkVerticalLine(board, xDrop, yDrop, xDrop-x, player))
 				{
-					tmpCount = x+1;
+					tmpCount += x;
 					break;
 				}
 			}
 		}
-		Math.max(tmpCount, count);
+		count = Math.max(tmpCount+1, count);
+		tmpCount = 0;
 		/*
 		 * Count vertical stones
 		 * first:left to right
 		 */
+		
+		
 		for(int x = xDrop;x < Game.COLS;x++)
 		{
 			if(board[x][yDrop] == player || board[x][yDrop] == 0)
@@ -348,14 +351,35 @@ public class AIHelper {
 		System.out.println("stones arround"+count);
 		return count;
 	}
+	/**
+	 * TODO: Fix this buggy function. get always 4 Stones arround back --why??
+	 * @param board
+	 * @param xDrop
+	 * @param yDrop
+	 * @param endX
+	 * @param player
+	 * @return
+	 */
 	private boolean checkVerticalLine(int [][]board,int xDrop,int yDrop,int endX,int player)
 	{
 		int enemy = this.changePlayer(player);
-		for(int x = xDrop; x < endX; x++)
+		if(endX <  xDrop )
 		{
-			if(board[x][yDrop] == enemy)
-				return false;
-				
+			for(int x = xDrop; x >= endX; x--)
+			{
+				if(board[x][yDrop] == enemy)
+					return false;
+					
+			}
+		}
+		else
+		{
+			for(int x = xDrop; x <= endX; x++)
+			{
+				if(board[x][yDrop] == enemy)
+					return false;
+					
+			}
 		}
 		return true;
 	}
