@@ -246,7 +246,7 @@ public class AIHelper {
 		tmpCount = 0;
 		
 		/*
-		 * find out where the farest stone is (in range of 4 cols)
+		 * find out where the furtherest stone is (in range of 4 cols)
 		 */
 		for(int x = 3; x >=0;x--)
 		{
@@ -276,35 +276,61 @@ public class AIHelper {
 		 * Count vertical stones
 		 * first:left to right
 		 */
-		
-		
-		for(int x = xDrop;x < Game.COLS;x++)
-		{
-			if(board[x][yDrop] == player || board[x][yDrop] == 0)
-				;//tmpCount++;
-			else
-				break;
-		}
+//		
+//		
+//		for(int x = xDrop;x < Game.COLS;x++)
+//		{
+//			if(board[x][yDrop] == player || board[x][yDrop] == 0)
+//				;//tmpCount++;
+//			else
+//				break;
+//		}
+//		/*
+//		 * second: right to left
+//		 */
+//		for(int x = xDrop-1; x >= 0;x--)
+//		{
+//			if(board[x][yDrop] == player || board[x][yDrop] == 0)
+//				;//;tmpCount++;
+//			else
+//				break;
+//		}
+//		count = Math.max(tmpCount, count);
+//		tmpCount = 0;
 		/*
-		 * second: right to left
-		 */
-		for(int x = xDrop-1; x >= 0;x--)
-		{
-			if(board[x][yDrop] == player || board[x][yDrop] == 0)
-				;//;tmpCount++;
-			else
-				break;
-		}
-		count = Math.max(tmpCount, count);
-		tmpCount = 0;
-		/*
-		 * Count diagonal stones
-		 * X
-		 *   X
-		 *     X
+		 * Count diagonal stones (new Version)
+		 *         X
 		 *       X
+		 *     X
+		 *  X     
 		 */
-		//first: from buttom to top
+		for(int x = 3; x >=0; x--)
+		{
+			if(x+ xDrop < Game.COLS && x+ yDrop < Game.ROWS &&  board[xDrop+x][yDrop+x] == player)
+			{
+				if(this.checkDiagonalLine(board, xDrop, yDrop, xDrop+x, yDrop+x, player))
+				{
+					tmpCount = x;
+					break;
+				}
+			}
+		}
+		for(int x = 3; x >=0; x--)
+		{
+			if( xDrop-x >= 0 && yDrop-x >=0 &&  board[xDrop-x][yDrop-x] == player)
+			{
+				if(this.checkDiagonalLine(board, xDrop, yDrop, xDrop-x, x, player))
+				{
+					tmpCount += x;
+					break;
+				}
+			}
+		}
+		System.out.println("diagonal Count"+tmpCount);
+		count = Math.max(tmpCount, count);
+		tmpCount =0;
+		
+		
 		for(int x = xDrop,y = yDrop;x >= 0 && y < Game.ROWS; x--,y++)
 		{
 			if(board[x][y] == player || board[x][y] == 0)
@@ -381,6 +407,48 @@ public class AIHelper {
 					
 			}
 		}
+		return true;
+	}
+	/**
+	 * 
+	 * @param board
+	 * @param xDrop
+	 * @param yDrop
+	 * @param endX
+	 * @param endY
+	 * @param player
+	 * @return
+	 */
+	private boolean checkDiagonalLine(int [][] board,int xDrop,int yDrop,int endX,int endY,int player)
+	{
+		
+		int enemy = this.changePlayer(player);
+		/*
+		 * Count from bottom to top,
+		 * from left to right
+		 */
+		if(endX > xDrop && endY > xDrop)
+		{
+			for(int x = xDrop,y = yDrop; x >= endX; x--,y--)
+			{
+				if(board[x][y] == enemy)
+					return false;
+					
+			}
+			
+		}
+		else
+		{
+			for(int x = xDrop,y = yDrop; x <= endX; x++,y++)
+			{
+				if(board[x][y] == enemy)
+					return false;
+					
+			}
+			
+		}
+		
+		
 		return true;
 	}
 
