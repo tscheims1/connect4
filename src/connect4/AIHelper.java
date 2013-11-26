@@ -458,7 +458,7 @@ public class AIHelper {
 		 * Count from bottom to top,
 		 * from left to right
 		 */
-		if(endX >= xDrop && endY >= xDrop)
+		if(endX >= xDrop && endY >= yDrop)
 		{
 			for(int x = xDrop,y = yDrop; x >= endX; x--,y--)
 			{
@@ -472,7 +472,7 @@ public class AIHelper {
 		 * Count from top to bottom
 		 * from left to right
 		 */
-		else if(endX < xDrop && endY < xDrop)
+		else if(endX < xDrop && endY < yDrop)
 		{
 			for(int x = xDrop,y = yDrop; x <= endX; x++,y++)
 			{
