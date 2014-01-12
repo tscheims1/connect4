@@ -168,7 +168,7 @@ public class AIHelper {
 		if(GameHelper.hasPlayerWon(board, player))
 		{
 			System.out.println("player has won");
-			return 100;
+			return 1000;
 		}
 		return 0;
 	}

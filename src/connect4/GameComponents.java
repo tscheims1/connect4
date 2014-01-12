@@ -31,4 +31,8 @@ public class GameComponents extends JComponent{
 	{
 		this.components.add(element);
 	}
+	public void reset()
+	{
+		components = new ArrayList<GameElement>();
+	}
 }

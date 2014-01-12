@@ -8,6 +8,7 @@ public class HumanPlayer extends Player implements KeyListener {
 
 	private boolean canPress = true;
 	private int pressedKey = -1;
+	private int player = 2;
 	
 	public HumanPlayer()
 	{
@@ -20,6 +21,7 @@ public class HumanPlayer extends Player implements KeyListener {
 		
 		for(;;)
 		{
+			
 			try {
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
@@ -33,7 +35,8 @@ public class HumanPlayer extends Player implements KeyListener {
 			/*
 			 * Only return a valid input
 			 */
-			if(nextInt >= 0 && nextInt <= Game.COLS)
+			
+			if(nextInt > 0 && nextInt <= Game.COLS && GameHelper.makeFakeMove(board, nextInt-1, this.player) != -1)
 			{
 				this.canPress = false;
 				this.pressedKey  = -1;

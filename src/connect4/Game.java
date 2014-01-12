@@ -1,66 +1,97 @@
 package connect4;
 
+import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Scanner;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
-public class Game extends JFrame{
+public class Game extends JFrame implements ActionListener{
 	
 	/**
 	 * Informations for the Graphic Classes
 	 */
 	
 	
-	public final static int UNIT = 20;
+	public final static int UNIT = 40;
 	public final static int ROWS = 6;
 	public final static int COLS = 7;
 	
 	private GameComponents gameComponents;
 	private Player players[] = new Player[2];
 	
+
+	private JButton quit;
+	
 	private int [][] board;
 	
 	public Game()
 	{
-		/*
-		 * Init an empty board
-		 */
-		board = new int[Game.COLS][Game.ROWS];
+		
 		
 	}
 	public void start()
 	{
 		
-		Board board = new Board();
+		/*
+		 * Init an empty board
+		 */
+		board = new int[Game.COLS][Game.ROWS];
+		
+		//Board board = new Board();
 		
 		
 		gameComponents = new GameComponents();
 		gameComponents.add(new Board());
 		
 		
-		players[0] = new HumanPlayer();
-		this.addKeyListener((KeyListener) players[0]);
-		players[1] = new CommonAI();
+		players[1] = new HumanPlayer();
+		
+		players[0] = new CommonAI();
 		
 		this.setSize(500, 500);
 		this.setTitle("Connect-4");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLayout(new BorderLayout());
+		this.setFocusable(true);
 		
+
+		
+
+		
+		quit = new JButton("exit");
+		quit.addActionListener(this);
+		
+		JPanel buttons = new JPanel();
+
+		buttons.add(quit);
 		this.setVisible(true);
-		this.add(gameComponents);
+		this.getContentPane().add(gameComponents);
+		this.getContentPane().add(buttons,BorderLayout.SOUTH);
 		this.repaint();
 		this.loop();
 	}
 	
+	private Object getValue(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	/**
 	 * The MAIN Gameloop
 	 */
 	private void loop()
 	{
+		this.addKeyListener((KeyListener) players[1]);
+		
 		for(int i = 0;i < Game.ROWS*Game.COLS;)
 		{
 			/*
@@ -84,13 +115,24 @@ public class Game extends JFrame{
 			if(GameHelper.hasPlayerWon(this.board, i%2+1))
 			{
 				
-				System.out.println("player"+(i%2+1));
-				break;
+				if(i%2 == 0)
+				{
+			         JOptionPane.showMessageDialog(null,"You have lost the game","", JOptionPane.PLAIN_MESSAGE);
+			         resetGame();
+				}
+			    else
+			    {
+					JOptionPane.showMessageDialog(null,"You have won the game","", JOptionPane.PLAIN_MESSAGE);
+					resetGame();
+
+			    }
 			}
 			i++;
-			System.out.println(this.board);
+			
 			
 		}
+		JOptionPane.showMessageDialog(null,"The game ended in a tie","", JOptionPane.PLAIN_MESSAGE);
+		resetGame();
 		
 	}
 	/**
@@ -112,4 +154,25 @@ public class Game extends JFrame{
 		}
 		return false;
 	}
+	private void resetGame()
+	{
+		board = new int[Game.COLS][Game.ROWS];
+		gameComponents.reset();
+		gameComponents.add(new Board());
+		this.repaint();
+		this.loop();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent ae) {
+		// TODO Auto-generated method stub
+		if(ae.getSource() == this.quit)
+		{
+			System.exit(0);
+		}
+
+	}
+
+
+	
 }
